@@ -37,6 +37,7 @@ public class Factura {
     // Método para generar el detalle de la factura
     public String generar_detalle() {
         StringBuilder detalle = new StringBuilder();
+        //holis
         detalle.append("Factura\n");
         detalle.append("Cliente: ").append(nombreCliente).append("\n");  // Muestra el nombre del cliente
         detalle.append("Fecha: ").append(fecha).append("\n");
