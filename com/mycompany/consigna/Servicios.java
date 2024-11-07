@@ -92,4 +92,11 @@ public class Servicios {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    // Detalles del servicio
+
+    public String mostrarDetalles() {
+        return "Servicio: " + nombre_servicio + "\nDescripción: " + descripcion + "\nPrecio base: $" + precio_base + "\nDuración estimada: " + duracion_estimada + " minutos\nEstado: " + estado;
+    }
 }
+

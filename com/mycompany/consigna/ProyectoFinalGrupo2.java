@@ -25,6 +25,13 @@ public class ProyectoFinalGrupo2 {
             return;
         }
 
+        // Crear los servicios específicos para la floristería
+        Servicios mantenimientoJardines = new Servicios(
+                1, "Mantenimiento de Jardines", "Servicio de mantenimiento para jardines", 150.0, 120, "Disponible");
+
+        Servicios ventaPlantas = new Servicios(
+                2, "Venta de Plantas", "Venta de una variedad de plantas", 20.0, 15, "Disponible");
+
         // Solicitar la descripción de la factura
         String desc = JOptionPane.showInputDialog(null, "Ingrese la descripción de la factura:");
         if (desc == null || desc.isEmpty()) {
@@ -59,21 +66,36 @@ public class ProyectoFinalGrupo2 {
 
         // Crear la factura con los datos ingresados
         var factura = new Factura(idCliente, nombreCliente, desc, tamanioJardin, fecha, total);
-        
+
+        // Menú desplegable para seleccionar el servicio
+
+        String[] opcionesServicios = { "Mantenimiento de Jardines", "Venta de Plantas" };
+        String seleccionServicio = (String) JOptionPane.showInputDialog(null, "Seleccione un servicio:", "Servicios",
+                JOptionPane.QUESTION_MESSAGE, null, opcionesServicios, opcionesServicios[0]);
+
+        // Agregar el servicio seleccionado a la factura
+        if (seleccionServicio != null) {
+            if (seleccionServicio.equals("Mantenimiento de Jardines")) {
+                factura.agregarServicio(mantenimientoJardines);
+            } else if (seleccionServicio.equals("Venta de Plantas")) {
+                factura.agregarServicio(ventaPlantas);
+            }
+        }
+
         // Pedir la cantidad y tipo de planta adicional
         int cantidad1 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de Margaritas:"));
         ConjuntoPlantasAdicionales item1 = new ConjuntoPlantasAdicionales(cantidad1, PlantasAdicionales.MARGARITAS);
-        
+
         int cantidad2 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de Aloe:"));
         ConjuntoPlantasAdicionales item2 = new ConjuntoPlantasAdicionales(cantidad2, PlantasAdicionales.ALOE);
-        
+
         // Añadir plantas a la factura
         factura.setConjunto_plantas_adicionales(item1);
         factura.setConjunto_plantas_adicionales(item2);
-        
+
         // Generar el detalle de la factura
         String detalleFactura = factura.generar_detalle();
-        
+
         // Mostrar la factura en un cuadro de diálogo
         JOptionPane.showMessageDialog(null, detalleFactura, "Factura", JOptionPane.INFORMATION_MESSAGE);
     }

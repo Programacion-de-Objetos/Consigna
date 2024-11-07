@@ -14,6 +14,7 @@ public class Factura {
     private String fecha;
     private double total;
     private List<ConjuntoPlantasAdicionales> plantasAdicionales;
+    private List<Servicios> servicios;
 
     // Constructor actualizado para incluir el nombre del cliente
     public Factura(int idCliente, String nombreCliente, String descripcion, double tamanioJardin, String fecha, double total) {
@@ -24,6 +25,7 @@ public class Factura {
         this.fecha = fecha;
         this.total = total;
         this.plantasAdicionales = new ArrayList<>();
+        this.servicios = new ArrayList<>();
     }
 
     public Factura() {
@@ -32,6 +34,10 @@ public class Factura {
     // Método para añadir plantas adicionales
     public void setConjunto_plantas_adicionales(ConjuntoPlantasAdicionales item) {
         this.plantasAdicionales.add(item);
+    }
+
+    public void agregarServicio(Servicios servicio) {
+        this.servicios.add(servicio);
     }
 
     // Método para generar el detalle de la factura
@@ -43,8 +49,14 @@ public class Factura {
         detalle.append("Descripción: ").append(descripcion).append("\n");
         detalle.append("Tamaño del jardín: ").append(tamanioJardin).append(" m²\n");
         detalle.append("Total: $").append(total).append("\n");
+        detalle.append("Servicios:\n");
+
+        for (Servicios servicio : servicios) {
+            detalle.append(servicio.mostrarDetalles()).append("\n");
+        }
+
         detalle.append("Plantas Adicionales:\n");
-        
+
         for (ConjuntoPlantasAdicionales planta : plantasAdicionales) {
             detalle.append(planta.getCantidad()).append(" x ").append(planta.getTipoPlanta()).append("\n");
         }
@@ -59,4 +71,13 @@ public class Factura {
     public void setPlantasAdicionales(List<ConjuntoPlantasAdicionales> plantasAdicionales) {
         this.plantasAdicionales = plantasAdicionales;
     }
+
+    public List<Servicios> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<Servicios> servicios) {
+        this.servicios = servicios;
+    }
+
 }
